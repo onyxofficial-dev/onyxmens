@@ -17,3 +17,4 @@ ONYX_MASTER_CONTEXT.md
 node_modules
 .next/
 .DS_Store
+tsconfig.tsbuildinfo
