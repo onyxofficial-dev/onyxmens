@@ -1,0 +1,45 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@theme inline {
+  --font-bebas-neue: var(--font-bebas-neue), 'Bebas Neue';
+  --font-inter: var(--font-inter), 'Inter';
+}
+
+:root {
+  color-scheme: light;
+}
+
+@layer base {
+  * {
+    @apply rounded-none;
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-inner {
+  animation: marquee 20s linear infinite;
+  white-space: nowrap;
+}
+
+@keyframes marquee-reverse {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.marquee-reverse-inner {
+  animation: marquee-reverse 35s linear infinite;
+  white-space: nowrap;
+}
