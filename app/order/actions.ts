@@ -295,7 +295,7 @@ export async function submitOrder(formData: any, cartItems: any[], total: number
       validatedData.notes ? `📝 *Notes:* _${validatedData.notes}_` : '',
       ``,
       divider,
-      `_Tap Send to confirm this order. Our team will verify and dispatch it shortly._`,
+      `_Tap Send to share your order details. Keep this chat open; our team will contact you shortly to verify._`,
     ].filter(Boolean).join('\n')
 
     const waText = isJamnagar
