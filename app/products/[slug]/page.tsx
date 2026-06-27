@@ -1,36 +1,12 @@
+import { cache } from 'react'
 import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import ProductDetailClient from './ProductDetailClient'
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
+import { SITE_URL } from '@/lib/site-config'
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const resolvedParams = await params
-  const slug = resolvedParams.slug
+export const getProductBySlug = cache(async (slug: string) => {
   const supabase = await createClient()
-  const { data: product } = await supabase
-    .from('products')
-    .select('name, description')
-    .eq('slug', slug)
-    .eq('is_active', true)
-    .eq('is_live', true)
-    .single()
-
-  if (!product) return { title: 'Product Not Found' }
-  return {
-    title: product.name,
-    description: product.description || `Buy ${product.name} from ONYX.`,
-  }
-}
-
-export const revalidate = 60
-
-export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
-  const resolvedParams = await params
-  const slug = resolvedParams.slug
-
-  const supabase = await createClient()
-
-  // Fetch product, images and variants
   const { data: product, error } = await supabase
     .from('products')
     .select(`
@@ -45,8 +21,69 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     .single()
 
   if (error || !product) {
+    return null
+  }
+  return {
+    product,
+    product_images: product.product_images || [],
+    product_variants: product.product_variants || [],
+  }
+})
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const resolvedParams = await params
+  const slug = resolvedParams.slug
+  const res = await getProductBySlug(slug)
+  if (!res) {
+    return {
+      title: 'Not Found',
+      robots: { index: false, follow: false },
+    }
+  }
+
+  const { product, product_images } = res
+  const descriptionText = product.description || ''
+  const desc =
+    descriptionText.length > 152
+      ? descriptionText.slice(0, 152) + '...'
+      : descriptionText
+
+  const coverImage =
+    product_images.find((i) => i.is_cover)?.image_url ?? product_images[0]?.image_url
+
+  return {
+    title: product.name,
+    description: desc,
+    openGraph: {
+      title: product.name,
+      description: desc,
+      images: coverImage ? [coverImage] : [],
+    },
+    alternates: { canonical: `/products/${slug}` },
+  }
+}
+
+export const revalidate = 60
+
+export default async function ProductPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  const resolvedParams = await params
+  const slug = resolvedParams.slug
+
+  const res = await getProductBySlug(slug)
+  if (!res) {
     notFound()
   }
+
+  const { product, product_images, product_variants } = res
+  const supabase = await createClient()
 
   // Fetch related products and count qualifying orders in parallel
   const [relatedRes, qualifyingItemsRes] = await Promise.all([
@@ -85,8 +122,8 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     design_tags: product.design_tags || [],
     care_instructions: product.care_instructions || '',
     base_price: product.base_price,
-    product_images: product.product_images || [],
-    product_variants: product.product_variants || [],
+    product_images: product_images,
+    product_variants: product_variants,
   }
 
   const formattedRelated = (related || []).map((p: any) => ({
@@ -105,12 +142,41 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
   }))
 
   const orderCount = qualifyingItems?.length ?? 0
+  const coverImage =
+    product_images.find((i) => i.is_cover)?.image_url ?? product_images[0]?.image_url
 
   return (
-    <ProductDetailClient
-      product={formattedProduct}
-      relatedProducts={formattedRelated}
-      orderCount={orderCount}
-    />
+    <>
+      {/* JSON-LD Product Schema */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": product.name,
+            "description": product.description || '',
+            "image": coverImage ? [coverImage] : [],
+            "brand": { "@type": "Brand", "name": "Onyx" },
+            "sku": product.id,
+            "offers": {
+              "@type": "Offer",
+              "priceCurrency": "INR",
+              "price": product.base_price,
+              "availability": product_variants.every((v: any) => v.is_out_of_stock)
+                ? 'https://schema.org/OutOfStock'
+                : 'https://schema.org/InStock',
+              "seller": { "@type": "Organization", "name": "Onyx" },
+              "url": `${SITE_URL}/products/${product.slug}`,
+            },
+          }),
+        }}
+      />
+      <ProductDetailClient
+        product={formattedProduct}
+        relatedProducts={formattedRelated}
+        orderCount={orderCount}
+      />
+    </>
   )
 }

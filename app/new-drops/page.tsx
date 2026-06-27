@@ -3,8 +3,9 @@ import NewDropsClient from './NewDropsClient'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'New Drops',
-  description: 'Shop the latest streetwear releases and fresh collection drops from ONYX.',
+  title: 'New Drops — Latest Mens Clothing',
+  description: 'Shop the latest drops from Onyx. New mens t-shirts, shirts, jeans and outerwear. Same-day delivery in Jamnagar, Gujarat.',
+  alternates: { canonical: '/new-drops' },
 }
 
 export const revalidate = 60

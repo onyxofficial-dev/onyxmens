@@ -38,7 +38,7 @@ export function Footer() {
               </svg>
             </a>
             <a 
-              href="#" 
+              href="https://www.facebook.com/share/1BwX3gidAU/" 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-white hover:opacity-60 transition-opacity flex items-center justify-center"
@@ -140,9 +140,9 @@ export function Footer() {
           >
             Instagram
           </a>
-          <a href="#" className="block text-xs font-inter opacity-60 hover:opacity-100 transition-opacity mb-2">
+          <Link href="/blog" className="block text-xs font-inter opacity-60 hover:opacity-100 transition-opacity mb-2">
             Blog
-          </a>
+          </Link>
         </div>
       </div>
 

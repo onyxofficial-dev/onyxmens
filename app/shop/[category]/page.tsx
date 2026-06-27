@@ -2,16 +2,44 @@ import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import CategoryClient from './CategoryClient'
 import { Metadata } from 'next'
+import { SITE_DESCRIPTION } from '@/lib/site-config'
 
-export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ category: string }>
+}): Promise<Metadata> {
   const resolvedParams = await params
   const category = resolvedParams.category ? resolvedParams.category.toLowerCase() : ''
-  const categoryInfo = categoryData[category]
-  if (!categoryInfo) return { title: 'Category Not Found' }
-  return {
-    title: categoryInfo.name,
-    description: `Shop premium ${categoryInfo.name} from ONYX.`,
+  const map: Record<string, Metadata> = {
+    't-shirts': {
+      title: 'Mens T-Shirts',
+      description: 'Shop premium mens t-shirts from Onyx. Minimalist urban designs, quality fabric. Same-day delivery in Jamnagar, Gujarat.',
+      alternates: { canonical: '/shop/t-shirts' },
+    },
+    shirts: {
+      title: 'Mens Shirts',
+      description: 'Shop premium mens shirts from Onyx. Minimalist cuts, quality fabric. Same-day delivery in Jamnagar, Gujarat.',
+      alternates: { canonical: '/shop/shirts' },
+    },
+    jeans: {
+      title: 'Mens Jeans',
+      description: 'Shop premium mens jeans from Onyx. Clean silhouettes, quality denim. Same-day delivery in Jamnagar, Gujarat.',
+      alternates: { canonical: '/shop/jeans' },
+    },
+    outerwear: {
+      title: 'Mens Outerwear & Jackets',
+      description: 'Shop premium mens outerwear and jackets from Onyx. Urban Indian menswear. Same-day delivery in Jamnagar, Gujarat.',
+      alternates: { canonical: '/shop/outerwear' },
+    },
   }
+  return (
+    map[category] ?? {
+      title: 'Shop Mens Clothing',
+      description: SITE_DESCRIPTION,
+      alternates: { canonical: '/shop' },
+    }
+  )
 }
 
 export const revalidate = 60

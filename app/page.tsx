@@ -1,7 +1,15 @@
 import { createClient } from '@/lib/supabase/server'
 import HomeClient from './HomeClient'
+import type { Metadata } from 'next'
+import { SITE_URL, SITE_DESCRIPTION } from '@/lib/site-config'
 
 export const revalidate = 60
+
+export const metadata: Metadata = {
+  title: 'Onyx — Urban Indian Menswear | New Drops',
+  description: 'Shop Onyx — premium urban menswear from India. New drops in t-shirts, shirts, jeans and outerwear. Same-day delivery in Jamnagar, Gujarat.',
+  alternates: { canonical: '/' },
+}
 
 export default async function HomePage() {
   const supabase = await createClient()
@@ -56,5 +64,41 @@ export default async function HomePage() {
     product_images: p.product_images || [],
   }))
 
-  return <HomeClient featuredProducts={formattedFeatured} />
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ClothingStore",
+            "name": "Onyx Menswear",
+            "url": SITE_URL,
+            "description": SITE_DESCRIPTION,
+            "areaServed": {
+              "@type": "City",
+              "name": "Jamnagar",
+              "containedInPlace": {
+                "@type": "State",
+                "name": "Gujarat",
+                "containedInPlace": { "@type": "Country", "name": "India" }
+              }
+            },
+            "priceRange": "₹₹",
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "Onyx Menswear Collection",
+              "itemListElement": [
+                { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Mens T-Shirts" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Mens Shirts" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Mens Jeans" } },
+                { "@type": "Offer", "itemOffered": { "@type": "Product", "name": "Mens Outerwear" } }
+              ]
+            }
+          }),
+        }}
+      />
+      <HomeClient featuredProducts={formattedFeatured} />
+    </>
+  )
 }

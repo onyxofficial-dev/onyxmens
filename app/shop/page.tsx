@@ -3,8 +3,9 @@ import ShopClient from './ShopClient'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Shop',
-  description: 'Explore the full collection of ONYX menswear.',
+  title: 'Shop Mens Clothing — T-Shirts, Shirts, Jeans, Outerwear',
+  description: 'Browse the full Onyx mens clothing collection — t-shirts, shirts, jeans, outerwear. Premium Indian menswear. Same-day delivery in Jamnagar.',
+  alternates: { canonical: '/shop' },
 }
 
 export const revalidate = 60
