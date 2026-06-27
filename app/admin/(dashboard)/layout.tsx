@@ -7,7 +7,7 @@ import { createClient } from '@/lib/supabase/client'
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const router = useRouter()
-  const [userEmail, setUserEmail] = useState('staff@onyx.com')
+  const [userEmail, setUserEmail] = useState('onyxmensofficial@gmail.com')
 
   useEffect(() => {
     const fetchUser = async () => {

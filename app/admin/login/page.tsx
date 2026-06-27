@@ -83,7 +83,7 @@ export default function AdminLoginPage() {
                 if (errors.email) setErrors(prev => ({ ...prev, email: undefined }))
               }}
               className={`w-full bg-black border p-3 text-sm font-inter text-white focus:border-white focus:outline-none transition-colors ${errors.email ? 'border-red-600' : 'border-gray-800'}`}
-              placeholder="name@onyx.com"
+              placeholder="onyxmensofficial@gmail.com"
             />
             {errors.email && <p className="text-xs text-red-600 mt-1 font-inter">{errors.email}</p>}
           </div>

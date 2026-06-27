@@ -311,7 +311,7 @@ function generateReceiptBlob(
     ctx.fillText('THANK YOU FOR SHOPPING WITH ONYX!', 300, y)
     y += 20
     ctx.font = '11px "Courier New", Courier, monospace'
-    ctx.fillText('SUPPORT: SUPPORT@ONYX.COM · ONYX-MENSWEAR.COM', 300, y)
+    ctx.fillText('SUPPORT: ONYXMENSOFFICIAL@GMAIL.COM · ONYX-MENSWEAR.COM', 300, y)
 
     canvas.toBlob((blob) => {
       resolve(blob)
@@ -533,7 +533,7 @@ function SuccessPageContent() {
 
             <div className="text-center text-[10px] text-neutral-500 italic">
               <p>THANK YOU FOR SHOPPING WITH ONYX!</p>
-              <p className="mt-1 font-sans font-normal not-italic text-[9px] text-neutral-400">SUPPORT: SUPPORT@ONYX.COM · ONYX-MENSWEAR.COM</p>
+              <p className="mt-1 font-sans font-normal not-italic text-[9px] text-neutral-400">SUPPORT: ONYXMENSOFFICIAL@GMAIL.COM · ONYX-MENSWEAR.COM</p>
             </div>
 
             <div className="mt-8 flex justify-center gap-4 no-print">

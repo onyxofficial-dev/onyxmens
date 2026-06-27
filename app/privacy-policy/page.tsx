@@ -78,7 +78,7 @@ export default function PrivacyPolicyPage() {
               <div>
                 <h2 className="font-bebas-neue text-xl font-black mb-3">7. CONTACT US</h2>
                 <p>
-                  For privacy concerns, contact us at <span className="font-bold">privacy@onyx.com</span> or visit <Link href="/support" className="underline font-bold">Support</Link>
+                  For privacy concerns, contact us at <span className="font-bold">onyxmensofficial@gmail.com</span> or visit <Link href="/support" className="underline font-bold">Support</Link>
                 </p>
               </div>
             </div>

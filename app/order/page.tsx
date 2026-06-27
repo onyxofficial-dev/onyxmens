@@ -472,7 +472,7 @@ function generateReceiptBlob(
     ctx.fillText('THANK YOU FOR SHOPPING WITH ONYX!', 300, y)
     y += 20
     ctx.font = '11px "Courier New", Courier, monospace'
-    ctx.fillText('SUPPORT: SUPPORT@ONYX.COM · ONYX-MENSWEAR.COM', 300, y)
+    ctx.fillText('SUPPORT: ONYXMENSOFFICIAL@GMAIL.COM · ONYX-MENSWEAR.COM', 300, y)
 
     canvas.toBlob((blob) => {
       resolve(blob)
