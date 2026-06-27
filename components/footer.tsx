@@ -60,7 +60,7 @@ export function Footer() {
               </svg>
             </a>
             <a 
-              href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '918758987200'}`} 
+              href={`https://wa.me/${process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919714367460'}`} 
               target="_blank" 
               rel="noopener noreferrer" 
               className="text-white hover:opacity-60 transition-opacity flex items-center justify-center"

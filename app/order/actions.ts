@@ -300,7 +300,7 @@ export async function submitOrder(formData: any, cartItems: any[], total: number
       ? `🚀 SAME DAY DELIVERY ORDER\n\n${standardText}`
       : standardText
 
-    const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '918758987200'
+    const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919714367460'
     const encodedText = encodeURIComponent(waText)
     const waLink = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedText}`
 

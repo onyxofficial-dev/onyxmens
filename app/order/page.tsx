@@ -13,7 +13,7 @@ import { ShoppingCart, ClipboardList, MessageCircle, Check, ChevronRight, Shield
 import { checkoutFormSchema, checkoutSavedAddressSchema, orderLookupSchema } from '@/lib/validations'
 
 // CONFIG VALUE: WhatsApp number from environment or fallback.
-const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '918758987200'
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919714367460'
 
 // ─── Progress Stepper ────────────────────────────────────────────────
 const STEPS = [

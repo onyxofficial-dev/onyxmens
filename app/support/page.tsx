@@ -53,7 +53,7 @@ const HOW_IT_WORKS = [
 ]
 
 export default function SupportPage() {
-  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919876543210'
+  const whatsappNumber = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER || '919714367460'
 
   return (
     <>
