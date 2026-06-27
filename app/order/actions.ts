@@ -9,6 +9,7 @@ export async function submitOrder(formData: any, cartItems: any[], total: number
   // 0. Rate Limiting Check
   const headerList = await headers()
   const ip = headerList.get('x-forwarded-for') || '127.0.0.1'
+  const host = headerList.get('host') || 'onyx-menswear.com'
   const rateLimitRes = await checkRateLimit(ip, 'order_submission', 5, 3600) // max 5 per hour
   if (!rateLimitRes.success) {
     return {
@@ -238,7 +239,8 @@ export async function submitOrder(formData: any, cartItems: any[], total: number
 
     const itemLines = cartItems.map((item, idx) => {
       const lineTotal = item.price * item.quantity
-      const itemLink = item.slug ? `onyx-menswear.com/products/${item.slug}` : ''
+      const protocol = host.includes('localhost') ? 'http' : 'https'
+      const itemLink = item.slug ? `${protocol}://${host}/products/${item.slug}` : ''
       return [
         `*${idx + 1}. ${item.name.toUpperCase()}*`,
         `   Size: ${item.size || '—'} · Color: ${item.color || '—'}`,
