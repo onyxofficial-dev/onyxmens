@@ -4,6 +4,7 @@ import { Bebas_Neue, Inter } from 'next/font/google'
 import './globals.css'
 import { CartProvider } from '@/lib/cart-context'
 import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from '@/lib/site-config'
+import { AnimatedFavicon } from '@/components/AnimatedFavicon'
 
 const bebasNeue = Bebas_Neue({
   variable: '--font-bebas-neue',
@@ -94,6 +95,7 @@ export default function RootLayout({
         />
 
         <CartProvider>
+          <AnimatedFavicon />
           {children}
         </CartProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
