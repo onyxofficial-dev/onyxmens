@@ -6,8 +6,8 @@ import { SITE_URL, SITE_DESCRIPTION } from '@/lib/site-config'
 export const revalidate = 60
 
 export const metadata: Metadata = {
-  title: 'Onyx — Urban Indian Menswear | New Drops',
-  description: 'Shop Onyx — premium urban menswear from India. New drops in t-shirts, shirts, jeans and outerwear. Same-day delivery in Jamnagar, Gujarat.',
+  title: 'Onyx — Urban Menswear. Quality First.',
+  description: 'Trend-led, not price-led. Quality menswear at a fair price, designed for the streets — with same-day delivery across Jamnagar.',
   alternates: { canonical: '/' },
 }
 
