@@ -490,10 +490,10 @@ export default function OrderPage() {
 
   useEffect(() => {
     validateCartStock()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const shipping = total >= 999 ? 0 : 99
-  const tax = 0
   const grandTotal = total + shipping
 
   const [isSubmitting, setIsSubmitting] = useState(false)

@@ -47,7 +47,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             localStorage.removeItem('onyx_cart')
           }
         } catch (e) {
-          console.log('[v0] Cart hydration error')
+          console.warn('[Cart] Hydration error — clearing stored cart')
         }
       }
       setMounted(true)
@@ -124,7 +124,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         setItems(loadedItems)
       }
     } catch (err) {
-      console.log('[Cart] Stock check failed', err)
+      console.warn('[Cart] Stock check failed', err)
     }
   }
 

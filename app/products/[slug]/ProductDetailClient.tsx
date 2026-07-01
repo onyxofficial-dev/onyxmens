@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Header } from '@/components/header'
 import { Footer } from '@/components/footer'
 import { useCart } from '@/lib/cart-context'
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { Banknote, RotateCcw, ShieldCheck, MapPin, Star, Layers, Ruler, Droplets, Truck, Tag } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
 import { submitReview } from './actions'
@@ -104,7 +104,7 @@ export default function ProductDetailClient({ product, relatedProducts, orderCou
   const [reviews, setReviews] = useState<any[]>([])
   const [loadingReviews, setLoadingReviews] = useState(true)
 
-  const fetchReviews = async () => {
+  const fetchReviews = useCallback(async () => {
     const supabase = createClient()
     const { data } = await supabase
       .from('reviews')
@@ -115,11 +115,11 @@ export default function ProductDetailClient({ product, relatedProducts, orderCou
     
     if (data) setReviews(data)
     setLoadingReviews(false)
-  }
+  }, [product.id])
 
   useEffect(() => {
     fetchReviews()
-  }, [product.id])
+  }, [fetchReviews])
 
   const avgRating = reviews.length > 0
     ? reviews.reduce((acc, r) => acc + r.rating, 0) / reviews.length

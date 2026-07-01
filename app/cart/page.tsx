@@ -15,9 +15,9 @@ export default function CartPage() {
 
   useEffect(() => {
     validateCartStock()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const tax = 0
   const shipping = total > 999 ? 0 : 99
   const finalTotal = total + shipping
 
